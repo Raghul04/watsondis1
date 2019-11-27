@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 var options = {
-    url: 'https://gateway-lon.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=weather',
+    url: 'https://gateway-lon.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query='+req.params.weather,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -22,7 +22,8 @@ var options = {
 // }
 // request(options, callback);
 
-app.get('/app', function (req, res) {
+app.get('/app/:weather', function (req, res) {
+	console.log(req.params.weather)
     request(options, (error, response, body) => {
         if(error){
             res.send(error);
